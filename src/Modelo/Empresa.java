@@ -58,7 +58,8 @@ public class Empresa {
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
-    // Texto combinado para cálculo de similitud
+    
+    // Texto combinado para cálculo de similitud (a tintin le gusta el pilin)
     public String getTexto() {
         String intereses = "";
         if (tags != null) {

@@ -1,8 +1,15 @@
 package Algoritmos;
 
-public class JaroWinkler {
+/**
+ *
+ * @author aUreLi0
+ */
 
-    private static double jaro(String s1, String s2) {
+public class Jaro {
+
+    public static double jaro(String s1, String s2) { //mide q tan parecidos son las cadenas 
+        
+        //limpiar texto pa evitar errores (eliminando espacios al inicio y final) 
         if (s1 == null) s1 = "";
         if (s2 == null) s2 = "";
 
@@ -11,13 +18,16 @@ public class JaroWinkler {
 
         int len1 = s1.length();
         int len2 = s2.length();
-
+        
+        //si ambas estan vacias son iguales y si no, una vacia y la otra no, son completamente diferenctes
         if (len1 == 0 && len2 == 0) return 1.0;
         if (len1 == 0 || len2 == 0) return 0.0;
 
+        //distancia máxima para considerar un match (es formulon noma) 
         int matchDistance = Math.max(len1, len2) / 2 - 1;
         if (matchDistance < 0) matchDistance = 0;
 
+        //arreglos para marcar coincidencias
         boolean[] s1Matches = new boolean[len1];
         boolean[] s2Matches = new boolean[len2];
 
@@ -49,29 +59,11 @@ public class JaroWinkler {
             k++;
         }
 
+        
+        //FORMULON TERRIBLE
         double m = matches;
         return ((m / len1) + (m / len2) + ((m - transpositions / 2.0) / m)) / 3.0;
     }
 
-    public static double getJaroWinkler(String s1, String s2) {
-        double jaroScore = jaro(s1, s2);
-
-        if (s1 == null) s1 = "";
-        if (s2 == null) s2 = "";
-
-        s1 = s1.toLowerCase().trim();
-        s2 = s2.toLowerCase().trim();
-
-        int prefix = 0;
-        int maxPrefix = 4;
-        int limit = Math.min(Math.min(s1.length(), s2.length()), maxPrefix);
-
-        for (int i = 0; i < limit; i++) {
-            if (s1.charAt(i) == s2.charAt(i)) prefix++;
-            else break;
-        }
-
-        double prefixScale = 0.1;
-        return jaroScore + (prefix * prefixScale * (1 - jaroScore));
-    }
+    
 }

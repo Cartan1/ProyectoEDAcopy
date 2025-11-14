@@ -3,111 +3,128 @@ package Controlador;
 import Algoritmos.GaleShapley;
 import Modelo.Empresa;
 import Modelo.Postulante;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controlador1 {
 
     public static void main(String[] args) {
 
-        // Definir empresas
         Empresa[] empresas = new Empresa[3];
         empresas[0] = new Empresa(
                 "E123",
                 "TechSecurity S.A.",
-                "Compañía líder en servicios de ciberseguridad y análisis de datos.",
-                "Se requieren analistas de datos y ciberseguridad, con interés en Python y cloud.",
-                "Lima, Perú",
+                "Compania lider en servicios de ciberseguridad y analisis de datos.",
+                "Se requieren analistas de datos y ciberseguridad, con interes en Python y cloud.",
+                "Lima, Peru",
                 "Servicios TI",
-                new String[]{"ciberseguridad", "analítica de datos", "cloud", "automatización"},
+                new String[]{"ciberseguridad", "analitica de datos", "cloud", "automatizacion"},
                 2
         );
 
         empresas[1] = new Empresa(
                 "E456",
                 "DataInsights Consulting",
-                "Consultora especializada en proyectos de analítica de datos para diversas industrias.",
-                "Buscamos practicantes con interés en BI, SQL y modelos de machine learning básicos.",
-                "Lima, Perú",
-                "Consultoría",
-                new String[]{"analítica de datos", "business intelligence", "machine learning"},
+                "Consultora especializada en proyectos de analitica de datos.",
+                "Buscamos practicantes con interes en BI, SQL y machine learning basico.",
+                "Lima, Peru",
+                "Consultoria",
+                new String[]{"analitica de datos", "business intelligence", "machine learning"},
                 2
         );
 
         empresas[2] = new Empresa(
                 "E789",
                 "CloudSolutions Peru",
-                "Empresa dedicada a migración y gestión de infraestructura en la nube.",
-                "Se requiere interés en DevOps, automatización y servicios cloud.",
-                "Lima, Perú",
+                "Empresa dedicada a migracion y gestion de infraestructura cloud.",
+                "Se requiere interes en DevOps, automatizacion y servicios cloud.",
+                "Lima, Peru",
                 "Servicios TI",
-                new String[]{"cloud", "devops", "infraestructura", "automatización"},
-                1
+                new String[]{"cloud", "devops", "infraestructura", "automatizacion"},
+                2
         );
 
-        // Definir postulantes
         Postulante[] postulantes = new Postulante[5];
-        postulantes[0] = new Postulante(
-                "P001",
-                "Juan Pérez",
-                "Estudiante de ingeniería de sistemas, proactivo, con gusto por la ciberseguridad y aprendizaje automático.",
-                "Me interesa la programación, ciberseguridad, análisis de datos y trabajar en cloud.",
+        postulantes[0] = new Postulante("P001", "Juan Perez",
+                "Estudiante de ingenieria de sistemas.",
+                "Interes en programacion, ciberseguridad, analisis de datos y cloud.",
                 new String[]{"Python", "SQL", "Linux", "ciberseguridad"},
-                "Lima, Perú",
-                "Pregrado – Ingeniería de Sistemas"
-        );
+                "Lima, Peru",
+                "Ingenieria de Sistemas");
 
-        postulantes[1] = new Postulante(
-                "P002",
-                "María López",
-                "Estudiante de ingeniería industrial con interés en inteligencia de negocios.",
-                "Me gusta el análisis de datos, dashboards y reporting.",
+        postulantes[1] = new Postulante("P002", "Maria Lopez",
+                "Estudiante de ingenieria industrial.",
+                "Interes en analisis de datos, dashboards y reporting.",
                 new String[]{"Power BI", "Excel", "SQL"},
-                "Lima, Perú",
-                "Pregrado – Ingeniería Industrial"
-        );
+                "Lima, Peru",
+                "Ingenieria Industrial");
 
-        postulantes[2] = new Postulante(
-                "P003",
-                "Carlos Díaz",
-                "Estudiante de ingeniería de sistemas con interés en cloud y DevOps.",
-                "Me interesa automatizar despliegues y trabajar con contenedores.",
+        postulantes[2] = new Postulante("P003", "Carlos Diaz",
+                "Interes en cloud y DevOps.",
+                "Automatizar despliegues y trabajar con contenedores.",
                 new String[]{"Linux", "Docker", "Python"},
-                "Lima, Perú",
-                "Pregrado – Ingeniería de Sistemas"
-        );
+                "Lima, Peru",
+                "Ingenieria de Sistemas");
 
-        postulantes[3] = new Postulante(
-                "P004",
-                "Ana Torres",
-                "Estudiante de computación científica con interés en machine learning.",
-                "Me gusta experimentar con modelos de clasificación y regresión.",
+        postulantes[3] = new Postulante("P004", "Ana Torres",
+                "Interes en machine learning.",
+                "Experimentar con modelos de clasificacion y regresion.",
                 new String[]{"Python", "Pandas", "Scikit-learn"},
-                "Lima, Perú",
-                "Pregrado – Computación Científica"
-        );
+                "Lima, Peru",
+                "Computacion Cientifica");
 
-        postulantes[4] = new Postulante(
-                "P005",
-                "Luis Gómez",
-                "Estudiante de informática con interés en soporte y redes.",
-                "Me interesa la administración de sistemas y mantenimiento de redes.",
-                new String[]{"Redes", "Soporte técnico", "Windows Server"},
-                "Lima, Perú",
-                "Pregrado – Informática"
-        );
+        postulantes[4] = new Postulante("P005", "Luis Gomez",
+                "Interes en soporte y redes.",
+                "Administracion de sistemas y mantenimiento de redes.",
+                new String[]{"Redes", "Soporte tecnico", "Windows Server"},
+                "Lima, Peru",
+                "Informatica");
 
-        String[] metodos = {"JaroWinkler","Levenshtein","Final"};
+        String[] metodos = {"JaroWinkler", "Levenshtein", "Final"};
 
         for (String metodo : metodos) {
-            System.out.println("\n=== EMPAREJAMIENTO MÉTODO: " + metodo + " ===");
-            int[][] res = GaleShapley.emparejar(empresas, postulantes, metodo);
+            System.out.println("\n===============================");
+            System.out.println(" EMPAREJAMIENTO - METODO: " + metodo);
+            System.out.println("===============================\n");
 
-            // mostrar empresa -> postulante
-            for (int i = 0; i < empresas.length; i++) {
-                System.out.print("Empresa: " + empresas[i].getNombre() + " -> ");
-                int pIdx = res[0][i];
-                if (pIdx != -1) System.out.println(postulantes[pIdx].getNombre());
-                else System.out.println("Sin asignado");
+            int[] asign = GaleShapley.emparejar(empresas, postulantes, metodo);
+
+            // imprimir postulante -> empresa
+            System.out.println("Postulante -> Empresa:");
+            for (int i = 0; i < postulantes.length; i++) {
+                int eIdx = asign[i];
+                String eName = (eIdx >= 0 ? empresas[eIdx].getNombre() : "Sin asignar");
+                System.out.println("  " + postulantes[i].getNombre() + " -> " + eName);
             }
+
+            // reconstruir lista por empresa
+            List<List<String>> porEmpresa = new ArrayList<>();
+            for (int i = 0; i < empresas.length; i++) {
+                porEmpresa.add(new ArrayList<>());
+            }
+
+            for (int i = 0; i < postulantes.length; i++) {
+                int eIdx = asign[i];
+                if (eIdx >= 0 && eIdx < empresas.length) {
+                    porEmpresa.get(eIdx).add(postulantes[i].getNombre());
+                }
+            }
+
+            // imprimir empresa -> lista
+            System.out.println("\nEmpresa -> Postulantes:");
+            for (int i = 0; i < empresas.length; i++) {
+                System.out.print("  " + empresas[i].getNombre() + " (capacidad:" + empresas[i].getCapacidad() + ") -> ");
+                if (porEmpresa.get(i).isEmpty()) {
+                    System.out.println("Sin asignados");
+                } else {
+                    for (String nombre : porEmpresa.get(i)) {
+                        System.out.print(nombre + "  ");
+                    }
+                    System.out.println();
+                }
+            }
+
+            System.out.println("\n-------------------------------------\n");
         }
     }
 }
