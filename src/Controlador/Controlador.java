@@ -1,11 +1,8 @@
 package Controlador;
 
 import Algoritmos.GaleShapley;
-import Algoritmos.Similitud;
 import Modelo.Empresa;
 import Modelo.Postulante;
-import Algoritmos.HashTable;
-import java.util.List;
 
 public class Controlador {
 
@@ -98,34 +95,19 @@ public class Controlador {
                 "Pregrado – Informática"
         );
 
-        // Mostrar similitudes
-        System.out.println("==== SIMILITUDES ====");
-        for (Empresa e : empresas) {
-            for (Postulante p : postulantes) {
-                double jaro = Similitud.jaroWinkler(e, p);
-                double lev = Similitud.levenshteinSim(e, p);
-                double fin = Similitud.similitudFinal(e, p);
+        String[] metodos = {"JaroWinkler","Levenshtein","Final"};
 
-                System.out.println(e.getNombre()+" <-> "+p.getNombre());
-                System.out.println("  Jaro: "+jaro);
-                System.out.println("  Levenshtein: "+lev);
-                System.out.println("  Ponderado: "+fin);
+        for (String metodo : metodos) {
+            System.out.println("\n=== EMPAREJAMIENTO MÉTODO: " + metodo + " ===");
+            int[][] res = GaleShapley.emparejar(empresas, postulantes, metodo);
+
+            // mostrar empresa -> postulante
+            for (int i = 0; i < empresas.length; i++) {
+                System.out.print("Empresa: " + empresas[i].getNombre() + " -> ");
+                int pIdx = res[0][i];
+                if (pIdx != -1) System.out.println(postulantes[pIdx].getNombre());
+                else System.out.println("Sin asignado");
             }
-        }
-
-        // Gale-Shapley
-        HashTable resultado = GaleShapley.emparejar(empresas, postulantes);
-
-        System.out.println("\n==== RESULTADO FINAL ====");
-        for (Empresa e : empresas) {
-            System.out.println("Empresa: " + e.getNombre());
-            @SuppressWarnings("unchecked")
-            List<Postulante> lista = (List<Postulante>) resultado.buscar(e.getCodigo());
-            if (lista != null && !lista.isEmpty()) {
-                for (Postulante p : lista) {
-                    System.out.println(" - " + p.getNombre());
-                }
-            } else System.out.println(" - Sin asignados");
         }
     }
 }
