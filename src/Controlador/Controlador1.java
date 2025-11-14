@@ -83,6 +83,15 @@ public class Controlador1 {
                 new String[]{"Redes", "Soporte tecnico", "Windows Server"},
                 "Lima, Peru",
                 "Informatica");
+        
+        
+        int[][] PreferenciasPostulantes = {
+            {2,1,3},
+            {1,3,2},
+            {3,1,2},
+            {2,3,1},
+            {1,2,3},
+        };
 
         System.out.println("PROGRAMA DE ASIGNACION OPTIMA ENTRE PRACTICANTES - EMPRESAS\n");
 
@@ -123,7 +132,7 @@ public class Controlador1 {
             System.out.println(" EMPAREJAMIENTO - METODO: " + metodo);
             System.out.println("=====================================\n");
 
-            int[] asign = GaleShapley.emparejar(empresas, postulantes, metodo);
+            int[][] asign = GaleShapley.emparejar(empresas, postulantes, metodo,PreferenciasPostulantes);
 
             // imprimir postulante -> empresa
             System.out.println("Postulante -> Empresa:");
