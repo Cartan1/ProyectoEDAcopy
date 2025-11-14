@@ -1,5 +1,6 @@
 package Algoritmos;
 
+import static Algoritmos.Similitud.similitudJaro;
 import Modelo.Empresa;
 import Modelo.Postulante;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class GaleShapley {
 
                 double score;
                 switch (metodo) {
-                    case "Jaro" -> score = Similitud.similitudJaroWinkler(empresas[e], postulantes[p]);
+                    case "Jaro" -> score = Similitud.similitudJaro(empresas[e], postulantes[p]);
                     case "Levenshtein" -> score = Similitud.similitudLevenshtein(empresas[e], postulantes[p]);
                     default -> score = Similitud.puntajeFinal(empresas[e], postulantes[p]);
                 }
@@ -60,7 +61,7 @@ public class GaleShapley {
                 for (int e = 0; e < nE; e++) {
                     double score;
                     switch (metodo) {
-                        case "JaroWinkler" -> score = Similitud.similitudJaroWinkler(empresas[e], postulantes[p]);
+                        case "JaroWinkler" -> score = Similitud.similitudJaro(empresas[e], postulantes[p]);
                         case "Levenshtein" -> score = Similitud.similitudLevenshtein(empresas[e], postulantes[p]);
                         default -> score = Similitud.puntajeFinal(empresas[e], postulantes[p]);
                     }
