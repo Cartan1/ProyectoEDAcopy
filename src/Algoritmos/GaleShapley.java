@@ -13,7 +13,8 @@ public class GaleShapley {
 
     
     public static int[][] emparejar(Empresa[] empresas, Postulante[] postulantes, int[][] rankingPost) {
-        Postulante[][]empPref = calcularPreferenciasEmpresas(empresas, postulantes);
+        boolean mostrar = false;
+        Postulante[][]empPref = calcularPreferenciasEmpresas(empresas, postulantes, mostrar);
         
         int nP = postulantes.length;
         int nE = empresas.length;
@@ -77,13 +78,13 @@ public class GaleShapley {
     }
     
     
-    public static Postulante[][] calcularPreferenciasEmpresas(Empresa[] empresas, Postulante[] postulantes){
+    public static Postulante[][] calcularPreferenciasEmpresas(Empresa[] empresas, Postulante[] postulantes, boolean mostrar){
         int nP = postulantes.length;
         int nE = empresas.length;
         
         Postulante[][] prefEmpresa = new Postulante[nE][nP];
         
-        prefEmpresa = Similitud.puntajeFinalIni(empresas, postulantes);
+        prefEmpresa = Similitud.puntajeFinalIni(empresas, postulantes, mostrar);
         
         return prefEmpresa;
     }

@@ -125,8 +125,9 @@ public class Controlador {
         System.out.println("              PUNTAJES               ");
         System.out.println("=====================================\n");
 
-        Similitud.imprimirPuntajes(empresas, Similitud.puntajeFinalIni(empresas, postulantes));
-
+        
+        boolean mostrar = true;
+        Similitud.imprimirPuntajes(empresas, Similitud.puntajeFinalIni(empresas, postulantes, mostrar));
 
         System.out.println("=====================================");
         System.out.println("            EMPAREJAMIENTO               ");

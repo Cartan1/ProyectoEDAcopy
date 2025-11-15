@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class Similitud {
+    
 
     public static double similitudLevenshtein(Empresa e, Postulante p) {
 
@@ -31,7 +32,7 @@ public class Similitud {
         return Jaro.jaro(a, b);
     }
     
-    public static Postulante[][] puntajeFinalIni(Empresa[] em, Postulante[] post){
+    public static Postulante[][] puntajeFinalIni(Empresa[] em, Postulante[] post, boolean mostrar){
         Postulante[][] puntajes = new Postulante [em.length][post.length];
         double jw;
         double lv;
@@ -62,10 +63,14 @@ public class Similitud {
             
         }
         
-        //pruebas de tiempo
-        System.out.println("TIEMPOS DE EJECUCION...");
-        System.out.println("JARO: "+ TiempoTotalJ + " ns");
-        System.out.println("LEVENSHTEIN: "+ TiempoTotalLV + " ns\n");
+        
+        if(mostrar){
+            //pruebas de tiempo
+            System.out.println("TIEMPOS DE EJECUCION...");
+            System.out.println("JARO: "+ TiempoTotalJ + " ns");
+            System.out.println("LEVENSHTEIN: "+ TiempoTotalLV + " ns\n");
+        }
+
         
         OrdenarPuntajes(puntajes);
         return puntajes; //postulantes ordenas de mejor a peor nota por empresa
