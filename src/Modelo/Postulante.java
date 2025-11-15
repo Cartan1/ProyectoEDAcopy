@@ -9,10 +9,11 @@ public class Postulante {
     private String[] habilidades;
     private String ubicacion;
     private String estudio;
-    private double puntaje;
+    private double[] puntaje = new double[5];
+    private int orden;
 
     public Postulante(String codigo, String nombre, String descripcion, String intereses,
-                      String[] habilidades, String ubicacion, String estudio) {
+                      String[] habilidades, String ubicacion, String estudio, int orden) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -20,8 +21,25 @@ public class Postulante {
         this.habilidades = habilidades;
         this.ubicacion = ubicacion;
         this.estudio = estudio;
+        this.orden = orden;
     }
 
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
+    }
+    
+    public double[] getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(double puntaje, int emp) {
+        this.puntaje[emp] = puntaje;
+    }
+    
     public String getCodigo() {
         return codigo;
     }

@@ -54,35 +54,35 @@ public class Controlador1 {
                 "Programacion, ciberseguridad, analisis de datos y cloud.",
                 new String[]{"Python", "SQL", "Linux", "ciberseguridad"},
                 "Lima, Peru",
-                "Ingenieria de Sistemas");
+                "Ingenieria de Sistemas",0);
 
         postulantes[1] = new Postulante("P002", "Maria Lopez",
                 "Estudiante de ingenieria industrial.",
                 "Analisis de datos, dashboards y reporting.",
                 new String[]{"Power BI", "Excel", "SQL"},
                 "Lima, Peru",
-                "Ingenieria Industrial");
+                "Ingenieria Industrial",1);
 
         postulantes[2] = new Postulante("P003", "Carlos Diaz",
                 "Interes en cloud y DevOps.",
                 "Automatizar despliegues y trabajar con contenedores.",
                 new String[]{"Linux", "Docker", "Python"},
                 "Lima, Peru",
-                "Ingenieria de Sistemas");
+                "Ingenieria de Sistemas",2);
 
         postulantes[3] = new Postulante("P004", "Ana Torres",
                 "Interes en machine learning.",
                 "Experimentar con modelos de clasificacion y regresion.",
                 new String[]{"Python", "Pandas", "Scikit-learn"},
                 "Lima, Peru",
-                "Computacion Cientifica");
+                "Computacion Cientifica",3);
 
         postulantes[4] = new Postulante("P005", "Luis Gomez",
                 "Interes en soporte y redes.",
                 "Administracion de sistemas y mantenimiento de redes.",
                 new String[]{"Redes", "Soporte tecnico", "Windows Server"},
                 "Lima, Peru",
-                "Informatica");
+                "Informatica",4);
         
         
         int[][] rankingPost = {
@@ -133,22 +133,18 @@ public class Controlador1 {
             System.out.println("=====================================\n");
 
             int[][] asign = GaleShapley.emparejar(empresas, postulantes, metodo,rankingPost);
-            // imprimir postulante -> empresa
             System.out.println("Postulante -> Empresa:");
             
-            int contador = 0;
             
             for (int j = 0; j < empresas.length; j++) { 
-            for (int i = 0; i < 2; i++) {
-                if(contador <5){
-                int eIdx = asign[j][i]; //indice empresa
-                String eName = (eIdx >= 0 ? empresas[eIdx].getNombre() : "Sin asignar");
-                System.out.println("  " + postulantes[contador].getNombre() + " -> " + eName);
+            for (int i = 0; i < empresas[j].getCapacidad(); i++) {
+                int eIdx = asign[j][i]; //indice del postulante asignado a la empresa
+                String eName = (j >= 0 ? empresas[j].getNombre() : "Sin asignar");
+                System.out.println("  " + postulantes[eIdx].getNombre() + " -> " + eName);
                 
-                contador++;}
-                else{
-                break;}
+                
             }}
+            
             // reconstruir lista por empresa
             List<List<String>> porEmpresa = new ArrayList<>();
             for (int i = 0; i < empresas.length; i++) {
@@ -181,6 +177,5 @@ public class Controlador1 {
             }
 
         }
-
     }
 }

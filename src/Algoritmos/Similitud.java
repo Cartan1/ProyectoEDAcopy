@@ -2,6 +2,8 @@ package Algoritmos;
 
 import Modelo.Empresa;
 import Modelo.Postulante;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class Similitud {
 
@@ -28,7 +30,40 @@ public class Similitud {
 
         return Jaro.jaro(a, b);
     }
-
+    
+    public static Postulante[][] puntajeFinalIni(Empresa[] em, Postulante[] post){
+        Postulante[][] puntajes = new Postulante [em.length][post.length];
+        double jw;
+        double lv;
+        double ponderado;
+        for (int e = 0; e < em.length; e++) {
+            for (int p = 0; p < post.length; p++) {
+                jw = similitudJaro(em[e], post[p]);
+                lv = similitudLevenshtein(em[e], post[p]);
+                ponderado = (0.7 * jw) + (0.3*lv);
+                post[p].setPuntaje(ponderado, e); //el postulante guarda el puntaje ponderado en su lista de puntajes 
+                puntajes[e][p] = post[p]; 
+            }
+            
+        }
+        OrdenarPuntajes(puntajes);
+        return puntajes; //postulantes ordenas de mejor a peor nota por empresa
+    }
+    
+    public static void OrdenarPuntajes(Postulante[][] post){
+        for (int emp = 0; emp < post.length; emp++) {
+            final int indexEmp = emp; //el indice para obtener los puntajes de los postulantes correspondientes a la empresa 
+            
+            Arrays.sort(post[emp], new Comparator<Postulante>(){
+            @Override
+            public int compare(Postulante post1, Postulante post2){
+            double punt1 = post1.getPuntaje()[indexEmp];
+            double punt2 = post2.getPuntaje()[indexEmp];
+            return Double.compare(punt1, punt2);}}
+            );
+        }
+    }
+    
     public static double puntajeFinal(Empresa e, Postulante p) {
         double jw = similitudJaro(e, p);
         double lv = similitudLevenshtein(e, p);
