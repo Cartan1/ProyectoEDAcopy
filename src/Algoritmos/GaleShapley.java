@@ -12,7 +12,6 @@ public class GaleShapley {
     //HACER QUE REGRESE SOLO LAS LISTAS X SEPARADO PARA PODER HACER PRINT MAS FACIL EN CONTROLADOR
     public static int[][] emparejar(Empresa[] empresas, Postulante[] postulantes, String metodo, int[][] rankingPost) {
         Postulante[][]empPref = calcularPreferenciasEmpresas(empresas, postulantes, metodo);
-        System.out.println(empPref[0][0].getOrden());
         int nP = postulantes.length;
         int nE = empresas.length;
         
@@ -41,9 +40,9 @@ public class GaleShapley {
             int post = empPref[emp][sgnPropuesta[emp]].getOrden();
             sgnPropuesta[emp]++;
             
-            if(postulantesLibres[emp]){
+            if(postulantesLibres[post]){
                 parejaEmpresa[emp] = post;
-                parejaPostulante[emp] = emp;   
+                parejaPostulante[post] = emp;   
                 postulantesLibres[emp] = false;
                 empresaLibres.pop();
             }
@@ -52,15 +51,15 @@ public class GaleShapley {
                     empresaLibres.pop();
                     empresaLibres.push(parejaPostulante[post]);
                     parejaEmpresa[parejaPostulante[post]] = -1;
-                    parejaEmpresa[post] = post;
-                    parejaPostulante[emp] = emp;
+                    parejaEmpresa[emp] = post;
+                    parejaPostulante[post] = emp;
                 }
             }
             }
             
             int [][] parejasPorEmpresas = new int[nE][2];
             for (int i = 0; i < nE; i++) {
-                for (int j = 0; j < 2; j++) {
+                for (int j = 0; j < 1; j++) {
                     parejasPorEmpresas[i][j] = parejaEmpresa[i];
                     
                 }

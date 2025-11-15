@@ -5,11 +5,12 @@ import Algoritmos.Similitud;
 import Modelo.Empresa;
 import Modelo.Postulante;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Controlador1 {
-
+    
     public static void main(String[] args) {
 
         // Definir empresas
@@ -135,13 +136,12 @@ public class Controlador1 {
             int[][] asign = GaleShapley.emparejar(empresas, postulantes, metodo,rankingPost);
             System.out.println("Postulante -> Empresa:");
             
-            
             for (int j = 0; j < empresas.length; j++) { 
-            for (int i = 0; i < empresas[j].getCapacidad(); i++) {
+                int capacidad = asign[j].length;
+            for (int i = 0; i < capacidad; i++) {
                 int eIdx = asign[j][i]; //indice del postulante asignado a la empresa
-                String eName = (j >= 0 ? empresas[j].getNombre() : "Sin asignar");
+                String eName = empresas[j].getNombre();
                 System.out.println("  " + postulantes[eIdx].getNombre() + " -> " + eName);
-                
                 
             }}
             
@@ -151,13 +151,12 @@ public class Controlador1 {
                 porEmpresa.add(new ArrayList<>());
             }
             
-            int contador2 = 0;
-            for (int j = 0; j < empresas.length; j++) {    
-            for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < empresas.length; j++) {  
+                int capacidad = asign[j].length;
+            for (int i = 0; i < capacidad; i++) {
                 int eIdx = asign[j][i];
-                if (eIdx >= 0 && eIdx < empresas.length) {
-                    porEmpresa.get(eIdx).add(postulantes[contador2].getNombre());
-                    contador2++;
+                if (eIdx >= 0 && eIdx < postulantes.length) {
+                    porEmpresa.get(j).add(postulantes[eIdx].getNombre());
                 }
             }}
 
