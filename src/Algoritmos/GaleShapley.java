@@ -70,26 +70,11 @@ public class GaleShapley {
     }
     
     
-    
-    public static double calcularSimilitud(Empresa e, Postulante p, String metodo){
-        return switch (metodo) {
-                        case "JaroWinkler" -> Similitud.similitudJaro(e, p);
-                        case "Levenshtein" -> Similitud.similitudLevenshtein(e, p);
-                        default -> Similitud.puntajeFinal(e, p);
-                    };
-    }
-    
     public static Postulante[][] calcularPreferenciasEmpresas(Empresa[] empresas, Postulante[] postulantes, String metodo){
         int nP = postulantes.length;
         int nE = empresas.length;
         
         Postulante[][] prefEmpresa = new Postulante[nE][nP];
-        
-        for (int e = 0; e < nE; e++) {
-            for (int p = 0; p < nP; p++) {
-                calcularSimilitud(empresas[e], postulantes[p], metodo);
-            }
-        }
         
         prefEmpresa = Similitud.puntajeFinalIni(empresas, postulantes);
         

@@ -54,34 +54,24 @@ public class Similitud {
         for (int emp = 0; emp < post.length; emp++) {
             final int indexEmp = emp; //el indice para obtener los puntajes de los postulantes correspondientes a la empresa 
             
-            Arrays.sort(post[emp], new Comparator<Postulante>(){
-            @Override
-            public int compare(Postulante post1, Postulante post2){
-            double punt1 = post1.getPuntaje()[indexEmp];
-            double punt2 = post2.getPuntaje()[indexEmp];
-            return Double.compare(punt1, punt2);}}
-            );
+            Arrays.sort(post[emp], (Postulante post1, Postulante post2) -> {
+                double punt1 = post1.getPuntaje()[indexEmp];
+                double punt2 = post2.getPuntaje()[indexEmp];
+                return Double.compare(punt2, punt1);
+            });
         }
     }
     
-    public static double puntajeFinal(Empresa e, Postulante p) {
-        double jw = similitudJaro(e, p);
-        double lv = similitudLevenshtein(e, p);
 
-        double ponderado = (0.7 * jw) + (0.3 * lv); //se consideran ambos valores
-
-        return ponderado;
-    }
-
-    public static void imprimirPuntajes(Empresa[] empresas, Postulante[] postulantes) {
-        for (Empresa e : empresas) {
-            for (Postulante p : postulantes) {
-                System.out.println("Empresa: " + e.getNombre() + " - Postulante: " + p.getNombre());
-                System.out.println("  -> Jaro-Winkler: " + similitudJaro(e, p));
-                System.out.println("  -> Levenshtein:  " + similitudLevenshtein(e, p));
-                System.out.println("  -> Puntaje final (0.7/0.3): " + puntajeFinal(e, p));
-                System.out.println();
+    public static void imprimirPuntajes(Empresa[] empresas, Postulante[][] postulantes) {
+        for (int e = 0; e < empresas.length; e++ ) {
+            System.out.println("Empresa: " + empresas[e].getNombre());
+            for (Postulante p : postulantes[e]) {
+                double punt = p.getPuntaje()[e];
+                System.out.println("Postulante: " + p.getNombre() + " -> Puntaje: " + punt);
+                System.out.println("--------------");
             }
+            System.out.println("_________________________________________________");
         }
     }
 

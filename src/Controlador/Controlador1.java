@@ -123,7 +123,7 @@ public class Controlador1 {
         System.out.println("              PUNTAJES               ");
         System.out.println("=====================================\n");
 
-        Similitud.imprimirPuntajes(empresas, postulantes);
+        Similitud.imprimirPuntajes(empresas, Similitud.puntajeFinalIni(empresas, postulantes));
 
         String[] metodos = {"Jaro", "Levenshtein", "Final"};
         for (String metodo : metodos) {
