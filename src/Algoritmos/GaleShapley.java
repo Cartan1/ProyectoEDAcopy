@@ -1,6 +1,6 @@
 package Algoritmos;
 
-import static Algoritmos.Similitud.similitudJaro;
+
 import Modelo.Empresa;
 import Modelo.Postulante;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import java.util.LinkedList;
 
 public class GaleShapley {
 
-    
     public static int[][] emparejar(Empresa[] empresas, Postulante[] postulantes, int[][] rankingPost) {
+        long inicio = System.nanoTime();
         boolean mostrar = false;
         Postulante[][]empPref = calcularPreferenciasEmpresas(empresas, postulantes, mostrar);
         
@@ -74,6 +74,9 @@ public class GaleShapley {
                 List<Integer> lista = asignados.get(i);
                 postulantesPorEmpresas[i] = lista.stream().mapToInt(Integer::intValue).toArray();
         }
+            long fin = System.nanoTime();
+            long total = fin - inicio;
+            System.out.println("Tiempo ejecucion Gale Shapley: "+total+" ns\n");
             return postulantesPorEmpresas;       
     }
     

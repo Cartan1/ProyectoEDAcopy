@@ -24,6 +24,7 @@ public class Postulante {
         this.orden = orden;
     }
     @Override
+    
     public Postulante clone() {
     // Crear nueva instancia copiando los campos principales
     Postulante copia = new Postulante(

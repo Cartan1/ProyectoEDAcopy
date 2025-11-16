@@ -3,7 +3,6 @@ package Algoritmos;
 import Modelo.Empresa;
 import Modelo.Postulante;
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class Similitud {
     
@@ -29,7 +28,7 @@ public class Similitud {
         String a = e.getTexto();
         String b = p.getTexto();
 
-        return Jaro.jaro(a, b);
+        return Jaro.jaro(a, b); // puntaje de Jaro
     }
     
     public static Postulante[][] puntajeFinalIni(Empresa[] em, Postulante[] post, boolean mostrar){
@@ -38,6 +37,7 @@ public class Similitud {
         double lv;
         double ponderado;
         
+        //inicializar tiempo total
         long TiempoTotalJ = 0;
         long TiempoTotalLV = 0;
         
@@ -71,7 +71,6 @@ public class Similitud {
             System.out.println("LEVENSHTEIN: "+ TiempoTotalLV + " ns\n");
         }
 
-        
         OrdenarPuntajes(puntajes);
         return puntajes; //postulantes ordenas de mejor a peor nota por empresa
     }
@@ -88,7 +87,6 @@ public class Similitud {
         }
     }
     
-
     public static void imprimirPuntajes(Empresa[] empresas, Postulante[][] postulantes) {
         for (int e = 0; e < empresas.length; e++ ) {
             System.out.println("Empresa: " + empresas[e].getNombre());
